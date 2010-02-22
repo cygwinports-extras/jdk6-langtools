@@ -1,0 +1,30 @@
+inherit ant
+
+hg_tag="jdk6-b${PV#*_}"
+
+DESCRIPTION="OpenJDK langtools (apt,javac,javah,javap,javadoc)"
+HOMEPAGE="http://openjdk.java.net/"
+SRC_URI="http://hg.openjdk.java.net/jdk6/jdk6/langtools/archive/${hg_tag}.tar.bz2"
+SRC_DIR="langtools-${hg_tag}"
+
+src_compile() {
+	lndirs
+	cd ${B}/make
+	cygant \
+		-Dboot.java.home=${JAVA_HOME} \
+		-Dboot.java=${JAVA} \
+		-Dboot.javac=/usr/bin/javac \
+		-Djavac.debug=false \
+		-Djavac.lint.opts=-nowarn
+}
+
+src_install() {
+	cd ${B}
+	newjar dist/lib/classes.jar jdk6-langtools.jar
+
+	java_wrapper apt-jdk6 ${JAVA_DIR}/jdk6-langtools.jar com.sun.tools.apt.Main
+	java_wrapper javac-jdk6 ${JAVA_DIR}/jdk6-langtools.jar com.sun.tools.javac.Main
+	java_wrapper javah-jdk6 ${JAVA_DIR}/jdk6-langtools.jar com.sun.tools.javah.Main
+	java_wrapper javap-jdk6 ${JAVA_DIR}/jdk6-langtools.jar sun.tools.javap.Main
+	java_wrapper javadoc-jdk6 ${JAVA_DIR}/jdk6-langtools.jar com.sun.tools.javadoc.Main
+}
