@@ -1,4 +1,4 @@
-/usr/sbin/update-alternatives --remove "javac" "/usr/bin/javac-jdk6"
-/usr/sbin/update-alternatives --remove "javadoc" "/usr/bin/javadoc-jdk6"
-/usr/sbin/update-alternatives --remove "javah" "/usr/bin/javah-jdk6"
-/usr/sbin/update-alternatives --remove "javap" "/usr/bin/javap-jdk6"
+for tool in javac javadoc javah javap apt
+do
+	/usr/sbin/update-alternatives --remove "${tool}" "/usr/bin/${tool}-jdk6"
+done

@@ -1,0 +1,61 @@
+jdk6-langtools
+------------------------------------------
+This package contains the official Java language compiler (javac), JNI 
+header generator (javah), class file disassembler (javap), API 
+documentation generator (javadoc), and annotation processor (apt) from 
+the Sun Java Development Kit 1.6 (JDK6).
+
+For more information about this package, see the upstream documentation 
+in /usr/share/doc/jdk6-langtools.
+
+Runtime requirements:
+  alternatives
+  jamvm-1.5.3-1
+
+Build requirements:
+  alternatives
+  ant-1.8.1-1
+  cygport-0.9.84-1
+  ecj-3.3.2-1
+  fastjar-0.98-2
+  jamvm-1.5.3-1
+
+License:
+  GPL-2
+
+Canonical homepage:
+  http://openjdk.java.net/groups/compiler/
+
+Canonical download:
+  http://hg.openjdk.java.net/jdk6/jdk6/langtools/
+
+------------------------------------------
+
+Build instructions:
+  unpack jdk6-langtools-1.6.0_19-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport jdk6-langtools-1.6.0_19-X.cygport all
+
+This will create:
+  /usr/src/jdk6-langtools-1.6.0_19-X-src.tar.bz2
+  /usr/src/jdk6-langtools-1.6.0_19-X.tar.bz2
+
+Or use 'cygport jdk6-langtools-1.6.0_19-X.cygport prep' to get a patched 
+source directory.
+
+To find out the files included in the binary distribution, you can
+use "cygcheck -l PKG", or browse the listing for the appropriate version
+at <http://cygwin.com/packages/>.
+
+------------------------------------------
+
+Port Notes:
+
+-----  Version 1.6.0_19-1 -----
+Initial release for Cygwin 1.7.
+
+
+Cygwin port maintained by:
+http://sourceware.org/cygwinports/

@@ -1,0 +1,45 @@
+inherit ant
+
+hg_tag="jdk6-b${PV#*_}"
+
+DESCRIPTION="OpenJDK langtools (apt,javac,javah,javap,javadoc)"
+HOMEPAGE="http://openjdk.java.net/"
+SRC_URI="http://hg.openjdk.java.net/jdk6/jdk6/langtools/archive/${hg_tag}.tar.bz2"
+SRC_DIR="langtools-${hg_tag}"
+
+src_compile() {
+	local default_javac=$(readlink -f /usr/bin/javac)
+
+	lndirs
+	cd ${B}/make
+
+	# FIXME: ugly! but I see no alternative: bootstrap stage absolutely
+	# requires ecj, and rebuild build stage absolutely requires JDK
+	check_prog_req ecj
+	warning "Temporarily changing /usr/bin/javac to ecj"
+	/usr/sbin/alternatives --set javac /usr/bin/ecj
+
+	cygant \
+		-Dboot.java.home=${JAVA_HOME} \
+		-Dboot.java=${JAVA} \
+		-Dboot.javac=/usr/bin/ecj \
+		-Djavac.debug=false \
+		-Djavac.lint.opts=-nowarn \
+		-Dbuild.number=b${PV#*_} \
+		-Dtarget.java.home=${JAVA_HOME}
+
+	inform "Reverting /usr/bin/javac to ${default_javac##*/}"
+	/usr/sbin/alternatives --set javac ${default_javac}
+}
+
+src_install() {
+	cd ${B}
+	newjar dist/lib/classes.jar jdk6-langtools.jar
+
+	java_wrapper apt-jdk6 jdk6-langtools.jar com.sun.tools.apt.Main
+	java_wrapper javac-jdk6 jdk6-langtools.jar com.sun.tools.javac.Main
+	java_wrapper javah-jdk6 jdk6-langtools.jar com.sun.tools.javah.Main
+	java_wrapper javap-jdk6 jdk6-langtools.jar sun.tools.javap.Main
+	java_wrapper javadoc-jdk6 jdk6-langtools.jar com.sun.tools.javadoc.Main
+}
+DOCS="ASSEMBLY_EXCEPTION THIRD_PARTY_README TRADEMARK"

@@ -1,0 +1,7 @@
+category: Devel Java
+requires: alternatives jamvm
+sdesc: "Sun Java compiler and Java language tools"
+ldesc: "This package contains the official Java language compiler 
+(javac), JNI header generator (javah), class file disassembler (javap), 
+API documentation generator (javadoc), and annotation processor (apt) 
+from the Sun Java Development Kit 1.6 (JDK6)."
