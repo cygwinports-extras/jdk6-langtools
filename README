@@ -53,6 +53,9 @@ at <http://cygwin.com/packages/>.
 
 Port Notes:
 
+-----  Version 1.6.0_19-2 -----
+Fixed wrapper scripts.
+
 -----  Version 1.6.0_19-1 -----
 Initial release for Cygwin 1.7.
 
