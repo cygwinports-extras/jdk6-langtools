@@ -1,0 +1,13 @@
+Hack, but an alternatives symlink in /usr/jre wouldn't be FHS-compliant.
+
+--- origsrc/langtools-jdk6-b20/make/build.xml	2010-10-21 16:08:46.527277500 -0500
++++ src/langtools-jdk6-b20/make/build.xml	2010-10-27 17:10:41.215910900 -0500
+@@ -624,7 +624,7 @@
+                     <arg line="@{options}"/>
+                     <bootclasspath>
+                         <path location="${build.classes.dir}"/>
+-                        <path location="${target.java.home}/jre/lib/rt.jar"/>
++                        <path location="${target.java.home}/share/classpath/glibj.zip"/>
+                     </bootclasspath>
+                     <sourcepath>
+                         <pathelement location="${src.classes.dir}"/>

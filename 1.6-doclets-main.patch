@@ -1,0 +1,26 @@
+doclets.jar contains no main(), and apparently a Class-Path: without
+a Main-Class: (in MANIFEST.MF) doesn't load properly.
+
+--- origsrc/langtools-jdk6-b20/make/build.xml	2010-06-11 12:23:59.000000000 -0500
++++ src/langtools-jdk6-b20/make/build.xml	2010-10-21 15:52:02.006637000 -0500
+@@ -250,9 +250,7 @@
+ 
+     <target name="build-bootstrap-doclets" depends="build-bootstrap-javadoc,-def-build-bootstrap-jar">
+         <build-bootstrap-jar name="doclets"
+-                              includes="${doclets.includes}"
+-                              jarmainclass="com.sun.tools.javadoc.Main"
+-                              jarclasspath="javadoc.jar"/>
++                              includes="${doclets.includes}"/>
+     </target>
+ 
+     <target name="build-classes-doclets" depends="build-classes-javadoc">
+@@ -262,8 +260,7 @@
+     <target name="build-doclets" depends="build-javadoc">
+         <!-- just jar, no bin for doclets -->
+         <build-jar name="doclets"
+-                    includes="${doclets.includes}"
+-                    jarclasspath="javadoc.jar"/>
++                    includes="${doclets.includes}"/>
+     </target>
+ 
+     <!-- (no javadoc for doclets) -->

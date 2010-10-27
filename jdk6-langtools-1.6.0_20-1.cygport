@@ -1,0 +1,41 @@
+inherit ant
+
+hg_tag="jdk6-b${PV#*_}"
+
+DESCRIPTION="OpenJDK langtools (apt,javac,javah,javap,javadoc)"
+HOMEPAGE="http://openjdk.java.net/"
+SRC_URI="http://hg.openjdk.java.net/jdk6/jdk6/langtools/archive/${hg_tag}.tar.bz2"
+SRC_DIR="langtools-${hg_tag}"
+
+PATCH_URI="
+	1.6-launcher.patch
+	1.6-doclets-main.patch
+	1.6-javadoc-bcp.patch
+"
+
+ANT_BUILD_XML="make/build.xml"
+ANT_BUILD_ARGS="
+	-Dboot.java=${JAVA}
+	-Dboot.java.home=${JAVA_HOME}
+	-Dbuild.number=b${PV#*_}
+	-Dtarget.java.home=${JAVA_HOME}
+"
+ANT_BUILD_TARGETS="build-all-tools javadoc-javac javadoc-javadoc javadoc-apt"
+
+src_install() {
+	cd ${B}
+	dojar dist/lib/*.jar
+
+	for b in dist/bin/*
+	do
+		newbin $b ${b##*/}-jdk6
+	done
+
+	for d in build/javadoc/*
+	do
+		newjavadoc $d ${d##*/}
+	done
+
+	sed -i -e 's|^\(mylib=\).*|\1"/usr/share/java"|' ${D}/usr/bin/*
+}
+DOCS="ASSEMBLY_EXCEPTION THIRD_PARTY_README TRADEMARK"
