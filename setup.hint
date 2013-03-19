@@ -1,7 +1,0 @@
-category: Devel Java
-requires: alternatives jamvm grep sed unzip
-sdesc: "Oracle Java compiler and Java language tools"
-ldesc: "This package contains the official Java language compiler 
-(javac), JNI header generator (javah), class file disassembler (javap), 
-API documentation generator (javadoc), and annotation processor (apt) 
-from the Oracle Java Development Kit 1.6 (JDK6)."
