@@ -1,7 +1,7 @@
 inherit ant
 
 NAME="jdk6-langtools"
-VERSION=1.6.0_27
+VERSION=1.6.0_33
 RELEASE=1
 CATEGORY="Devel Java"
 SUMMARY="Oracle Java compiler and Java language tools"
@@ -13,12 +13,15 @@ REQUIRES="jamvm unzip"
 HOMEPAGE="http://openjdk.java.net/"
 SRC_URI="http://hg.openjdk.java.net/jdk6/jdk6/langtools/archive/jdk6-b${VERSION#*_}.tar.bz2"
 SRC_DIR="langtools-jdk6-b${VERSION#*_}"
-
 PATCH_URI="
 	1.6-launcher.patch
 	1.6-doclets-main.patch
 	1.6-javadoc-bcp.patch
 "
+
+PKG_NAMES="${NAME} ${NAME}-doc"
+jdk6_langtools_CONTENTS="usr/bin/ usr/share/doc/ ${JAVA_DIR#/}"
+jdk6_langtools_doc_CONTENTS=${JAVADOC_DIR#/}
 
 ANT_BUILD_XML="make/build.xml"
 ANT_BUILD_ARGS="
